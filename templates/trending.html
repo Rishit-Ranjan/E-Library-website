@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/logo21.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='trending.css') }}">
+  
+  <title> The Grey Ink | Trending </title>
+
+<body>
+  <div class="bg">
+    <div style="display: flex;">
+      <a href="url_for('index')" ><img src="{{ url_for('static', filename='assets/logo21.png') }}" style="width: 50px; height: 50px; padding-top: 15px; padding-left: 1rem;"></a>
+      <header>
+        <h1><b><a href="index.html" style="text-decoration: none; color:black ;"> The Grey Ink </a> </b></h1>
+      </header>
+      
+      <nav>
+        <ul>
+          <li><a href="" class="black-box">Sign Up</a></li>
+          <!-- <li><a href="logingit.html">Log In</a></li>  -->
+          <li><a href="#"> Profile </a></li>
+          <li><a href="#"> My Books </a></li>
+          <li><a href="{{ url_for('category') }}"> Catagories </a></li>
+          <li><a href="{{ url_for('trending') }}"> Trending </a></li>
+        </ul>
+      </nav>
+    </div>
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="text-white" style="font-size: 50px;">Top Trending Books</h1>
+        </div>
+      </div>
+      
+      {% for i in range(book_name|length) %}
+      
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body">
+            <img class="card-img-top" src="{{ image[i] }}" alt="Book Cover">
+            <h3>{{ book_name[i] }}</h3>
+            <h4>{{ author[i] }}</h4>
+            <h4>{{ rating[i] }}</h4>
+          </div>
+        </div>
+      </div>
+      
+      {% endfor %}
+      
+    </div>
+  </div>  
+ 
+
+</body>
+</html>

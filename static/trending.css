@@ -1,0 +1,43 @@
+body {
+    background-image: url('./assets/bg.jpg');
+}
+
+ul {
+    list-style-type: none;
+    overflow: hidden;
+    padding-left: 32rem;
+    border: 1px #e7dede;
+}
+  
+li {
+    float: right;
+}
+
+li a {
+    display: inline-block;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: rgba(8, 0, 0, 0.926);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: small;
+}
+
+.black-box { 
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+}
+  
+.card img {
+    width: 25%;
+    height: auto;
+    border-radius: 5px 5px 0 0; 
+}
+.card-body {
+    padding: 10px; 
+}
+.card h3, .card h4 {
+    margin: 5px 0; 
+}
