@@ -1,43 +1,62 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for ('static', filename ='index.css') }}">
-
-  <title> The Grey Ink </title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
+  <title>The Grey Ink</title>
+  <style>
+    
+  </style>
 </head>
 
 <body>
   <div class="bg">
-    
     <div style="display: flex;">
-      <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='assets/logo21.png') }}" style="width: 50px; height: 50px; padding-top: 15px; padding-left: 1rem;"></a>
+      <a href="{{ url_for('index') }}">
+        <img src="{{ url_for('static', filename='assets/logo21.png') }}" style="width: 50px; height: 50px; padding-top: 15px; padding-left: 1rem;">
+      </a>
       <header>
-        <h1><b><a href= "{{ url_for('index') }}" style= "text-decoration: none; color:black ;">The Grey Ink</a> </b></h1>
+        <h1><b>
+          <a href="{{ url_for('index') }}" style="text-decoration: none; color:black;">The Grey Ink</a>
+        </b></h1>
       </header>
-
       <nav>
         <ul>
           <li><a href="#" class="black-box">Sign Up</a></li>
-          
           <li><a href="#">My Books</a></li>
           <li><a href="{{ url_for('category') }}">Catagories</a></li>
-          <li><a href="{{ url_for('trending') }}"> Trending </a></li>
+          <li><a href="{{ url_for('trending') }}">Trending</a></li>
         </ul>
       </nav>
     </div>
-    <form style="text-align: center; padding: 40px" id="search-form" action="/recommend_books" method= "post">
+    <form style="text-align: center; padding: 40px" id="search-form" action="/" method="POST">
       <input type="text" id="search-box" placeholder="Search Books..." class="search-box" name="user_input">
       <button type="submit" class="search-button">Search</button>
-    </form>  
+    </form>
+
+    {% if data %}
+      <h2 style="text-align:center;">Recommended Books</h2>
+      {% if data|length == 0 %}
+        <p style="text-align:center;">No recommendations found.</p>
+      {% else %}
+        <div class="recommend-books-row">
+          {% for item in data %}
+            <div class="book-card">
+              <img src="{{ item[2] }}" alt="{{ item[0] }}" />
+              <h3>{{ item[0] }}</h3>
+              <p><em>{{ item[1] }}</em></p>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endif %}
 
     <h1 style="text-align: center;">Quotes</h1>
     <div class="quotes">
       <div class="hr-line"></div>
       <p id="quote-content" style="text-align: center;"></p>
-      <p id="quote-author" style="text-align: center; font-style: italic ; margin-left: 350px; "><b></b></p>
+      <p id="quote-author" style="text-align: center; font-style: italic ; margin-left: 350px;"><b></b></p>
       <div class="hr-line"></div>
     </div>
   </div>
