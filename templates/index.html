@@ -1,63 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xml:lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" /> <!-- Page-specific styles -->
   <title>The Grey Ink</title>
   <style>
     
   </style>
 </head>
 
-<body>
-  <div class="bg">
-    <div style="display: flex;">
-      <a href="{{ url_for('index') }}">
-        <img src="{{ url_for('static', filename='assets/logo21.png') }}" style="width: 50px; height: 50px; padding-top: 15px; padding-left: 1rem;">
+<body> 
+  <div class="bg"> 
+    <div class="main-header-section">
+      <a href="{{ url_for('index') }}" class="logo-link">
+        <img src="{{ url_for('static', filename='assets/logo21.png') }}" class="logo" alt="The Grey Ink Logo">
+        <h1><a href="{{ url_for('index') }}">The Grey Ink</a></h1>
       </a>
-      <header>
-        <h1><b>
-          <a href="{{ url_for('index') }}" style="text-decoration: none; color:black;">The Grey Ink</a>
-        </b></h1>
-      </header>
-      <nav>
+      <nav class="main-nav">
         <ul>
-          <li><a href="#" class="black-box">Sign Up</a></li>
-          <li><a href="#">My Books</a></li>
-          <li><a href="{{ url_for('category') }}">Catagories</a></li>
+          <li><a href="{{ url_for('category') }}">Categories</a></li>
           <li><a href="{{ url_for('trending') }}">Trending</a></li>
+          {% if 'user' in session %}
+            <li><a href="{{ url_for('profile') }}">Profile</a></li>
+            <li><a href="{{ url_for('logout') }}" class="black-box">Logout</a></li>
+          {% else %}
+            <li><a href="{{ url_for('signup') }}" class="black-box">Sign Up</a></li>
+          {% endif %}
         </ul>
       </nav>
     </div>
-    <form style="text-align: center; padding: 40px" id="search-form" action="/" method="POST">
-      <input type="text" id="search-box" placeholder="Search Books..." class="search-box" name="user_input">
+
+    <form class="search-form" id="search-form" action="/" method="POST">
+      <input type="text" id="search-box" placeholder="Search Books..." class="search-box" name="user_input" aria-label="Search for books">
       <button type="submit" class="search-button">Search</button>
     </form>
 
     {% if data %}
-      <h2 style="text-align:center;">Recommended Books</h2>
-      {% if data|length == 0 %}
-        <p style="text-align:center;">No recommendations found.</p>
-      {% else %}
-        <div class="recommend-books-row">
-          {% for item in data %}
-            <div class="book-card">
-              <img src="{{ item[2] }}" alt="{{ item[0] }}" />
-              <h3>{{ item[0] }}</h3>
-              <p><em>{{ item[1] }}</em></p>
-            </div>
-          {% endfor %}
-        </div>
-      {% endif %}
+      <div class="container">
+        <h2 class="section-title">Recommended Books</h2>
+        {% if data|length == 0 %}
+          <p class="no-recommendations">No recommendations found for "{{ request.form.get('user_input') }}".</p>
+        {% else %}
+          <div class="recommend-books-grid">
+            {% for item in data %}
+              <div class="book-card">
+                <img src="{{ item[2] }}" alt="Cover for {{ item[0] }}" />
+                <h3>{{ item[0] }}</h3>
+                <p><em>{{ item[1] }}</em></p>
+                {% if 'user' in session %}
+                  <form action="{{ url_for('add_to_my_books') }}" method="POST" style="margin-top: auto;">
+                    <input type="hidden" name="book_title" value="{{ item[0] }}">
+                    <button type="submit" class="save-book-button">Save</button>
+                  </form>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
     {% endif %}
 
-    <h1 style="text-align: center;">Quotes</h1>
-    <div class="quotes">
-      <div class="hr-line"></div>
-      <p id="quote-content" style="text-align: center;"></p>
-      <p id="quote-author" style="text-align: center; font-style: italic ; margin-left: 350px;"><b></b></p>
-      <div class="hr-line"></div>
+    <div class="container">
+      <h2 class="section-title">Quotes</h2>
+      <hr class="hr-line">
+      <div class="quote-section">
+        <p id="quote-content" class="quote-content"></p>
+        <p id="quote-author" class="quote-author"><b></b></p>
+      </div>
+      <hr class="hr-line">
     </div>
   </div>
   <script src="{{ url_for('static', filename='script.js') }}"></script>

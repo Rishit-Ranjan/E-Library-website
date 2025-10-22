@@ -4,53 +4,49 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{url_for('static', filename='category.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='category.css') }}"> <!-- Page-specific styles -->
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename= 'assets/logo21.png') }}">
   <title>The Grey Ink | Categories</title>
 </head>
 
 <body>
   <div class="bg">
-
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-      <header style="display: flex; align-items: center; margin: 1rem;">
-        <a href="{{ url_for('index') }}" style="float: left;">
-          <img src="{{ url_for('static', filename= 'assets/logo21.png') }}" style="width: 50px; height: 50px; padding-top: 15px; padding-left: 1rem;">
-        </a>
-        <h1><b><a href="{{ url_for('index') }}" style="text-decoration: none; color:black ;">The Grey Ink</a> </b></h1>
-      </header>
-
-      <nav>
+    <div class="main-header-section">
+      <a href="{{ url_for('index') }}" class="logo-link">
+        <img src="{{ url_for('static', filename='assets/logo21.png') }}" class="logo" alt="The Grey Ink Logo">
+        <h1><a href="{{ url_for('index') }}">The Grey Ink</a></h1>
+      </a>
+      <nav class="main-nav">
         <ul>
-          <li><a href="#">Profile</a></li>
-          <li><a href="#">My Books</a></li>
           <li><a href="{{ url_for('category') }}">Categories</a></li>
           <li><a href="{{ url_for('trending') }}">Trending</a></li>
+          {% if 'user' in session %}
+            <li><a href="{{ url_for('profile') }}">Profile</a></li>
+            <li><a href="{{ url_for('logout') }}" class="black-box">Logout</a></li>
+          {% else %}
+            <li><a href="{{ url_for('signup') }}" class="black-box">Sign Up</a></li>
+          {% endif %}
         </ul>
       </nav>
-
     </div>
-    <!-- 
-    <form action="submit" class="search-form">
-      <input type="text" placeholder="Search Books..." class="search-box">
-      <button type="submit" class="search-button">Search</button>
-    </form> -->
 
-    <h1 class="section-title">Categories</h1>
-    <hr class="horizontal-line">
-    <div class="categories">
-      <div class="category">
-        <h2 class="category-title">Fiction</h2>
-        <p class="category-description">Explore the world of imagination with our collection of fiction books.</p>
-      </div>
-      <div class="category">
-        <h2 class="category-title">Non-Fiction</h2>
-        <p class="category-description">Expand your knowledge with our wide range of non-fiction books.</p>
-      </div>
-      <div class="category">
-        <h2 class="category-title">Sci-Fi</h2>
-        <p class="category-description">Travel to distant galaxies and explore futuristic worlds with our sci-fi
-          collection.</p>
+    <div class="container">
+      <h2 class="section-title">Book Categories</h2>
+      <hr class="hr-line">
+      <div class="categories-grid">
+        <a href="{{ url_for('show_category', category_name='Fiction') }}" class="category-card">
+            <h3 class="category-title">Fiction</h3>
+            <p class="category-description">Explore the world of imagination with our collection of fiction books.</p>
+        </a>
+        <a href="{{ url_for('show_category', category_name='Non-Fiction') }}" class="category-card">
+            <h3 class="category-title">Non-Fiction</h3>
+            <p class="category-description">Expand your knowledge with our wide range of non-fiction books.</p>
+        </a>
+        <a href="{{ url_for('show_category', category_name='Sci-Fi') }}" class="category-card">
+            <h3 class="category-title">Sci-Fi</h3>
+            <p class="category-description">Travel to distant galaxies and explore futuristic worlds with our sci-fi collection.</p>
+        </a>
       </div>
     </div>
   </div>

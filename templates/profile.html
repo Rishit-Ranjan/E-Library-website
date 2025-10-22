@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <title>The Grey Ink | My Profile</title>
+</head>
+<body>
+    <div class="bg">
+        <div class="main-header-section">
+            <a href="{{ url_for('index') }}" class="logo-link">
+                <img src="{{ url_for('static', filename='assets/logo21.png') }}" class="logo" alt="The Grey Ink Logo">
+                <h1><a href="{{ url_for('index') }}">The Grey Ink</a></h1>
+            </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="{{ url_for('category') }}">Categories</a></li>
+                    <li><a href="{{ url_for('trending') }}">Trending</a></li>
+                    {% if 'user' in session %}
+                        <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                        <li><a href="{{ url_for('logout') }}" class="black-box">Logout</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('signup') }}" class="black-box">Sign Up</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+
+        <div class="container">
+            <h2 class="section-title">My Profile</h2>
+            <hr class="hr-line">
+            <div style="text-align: center; padding: 40px; font-size: 1.2rem;">
+                <p>Welcome, <strong>{{ session.user }}</strong>!</p>
+                <p>Manage your account and book collections here.</p>
+                <a href="{{ url_for('my_books') }}" class="profile-action-button">My Books</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
