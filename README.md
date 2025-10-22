@@ -86,4 +86,8 @@ The application will be running at `http://127.0.0.1:5000`. Open this URL in you
 
 ## 📊 Data
 
-The recommendation model is built using the Book-Crossing Dataset, which contains anonymized ratings of books from various users. The data has been pre-processed and saved into `.pkl` files for efficient loading.
+The recommendation model is built using the Book-Crossing Dataset, which contains anonymized ratings of books from various users. The data has been pre-processed and saved into `.pkl` files for efficient loading.<br/><br/>
+
+![alt text](image.png)<br/><br/>
+
+![alt text](image-1.png)
