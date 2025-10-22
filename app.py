@@ -22,6 +22,7 @@ def welcome():
 @app.route('/', methods=["GET", "POST"])
 def index():
     data = None
+    user_input = None
     if request.method == "POST":
         user_input = request.form.get('user_input')
         data = []
@@ -44,7 +45,7 @@ def index():
         except IndexError:
             # This will handle cases where the book is not found in pt.index
             return render_template('not_found.html', user_input=user_input)
-    return render_template('index.html', data=data)
+    return render_template('index.html', data=data, user_input=user_input)
 
 @app.route('/trending')
 def trending():

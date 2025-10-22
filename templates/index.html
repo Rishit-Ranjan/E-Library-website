@@ -33,7 +33,7 @@
     </div>
 
     <form class="search-form" id="search-form" action="/" method="POST">
-      <input type="text" id="search-box" placeholder="Search Books..." class="search-box" name="user_input" aria-label="Search for books">
+      <input type="text" id="search-box" placeholder="Search Books..." class="search-box" name="user_input" aria-label="Search for books" value="{{ user_input or '' }}">
       <button type="submit" class="search-button">Search</button>
     </form>
 
